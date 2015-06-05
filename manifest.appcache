@@ -1,0 +1,14 @@
+CACHE MANIFEST
+
+# 2015-06-05:v0.0.1
+
+CACHE:
+/
+//cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css
+//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js
+//cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js
+//cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/images/ajax-loader.gif
+/android-icon-192x192.png
+
+NETWORK:
+*

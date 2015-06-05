@@ -1,37 +1,135 @@
 <!DOCTYPE html>
-<html lang="en-us">
-  <head>
-    <meta charset="UTF-8">
-    <title>InstaBail by instabail</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">InstaBail</h1>
-      <h2 class="project-tagline">An app to help you instantly bail on your mates</h2>
-    </section>
+<html lang="en" manifest="/manifest.appcache">
+<head>
+    <meta charset="utf-8">
+    <title>InstaBail</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Ed Bails">
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div data-role="page" data-theme="b">
+        <div data-role="header">
+            <h1>InstaBail</h1>
+        </div>
+        <div data-role="content">
+            <div style="height: 200px; text-align: center;">
+                <img src="/android-icon-192x192.png" alt="InstaBail" />
+            </div>
+            <textarea cols="20" rows="40" name="textArea" id="textArea"></textarea>
+            <p>
+                <a href="#" data-role="button" id="bailBtn">Generate a new bail!</a>
+            </p>
+            <p>
+                <a href="mailto:" data-role="button" id="emailBtn">Send as email</a>
+            </p>
+            <p>
+                <a href="sms:" data-role="button" id="smsBtn">Send as SMS</a>
+            </p>
+        </div>
+    </div>
 
-    <section class="main-content">
-      <h1>
-<a id="instabail" class="anchor" href="#instabail" aria-hidden="true"><span class="octicon octicon-link"></span></a>InstaBail</h1>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
 
-<h2>
-<a id="an-app-to-help-you-instantly-bail-on-your-mates" class="anchor" href="#an-app-to-help-you-instantly-bail-on-your-mates" aria-hidden="true"><span class="octicon octicon-link"></span></a>An app to help you instantly bail on your mates</h2>
+    <script type="text/javascript">
 
-<p>Work in progress</p>
+        var bails = [
+            "leaves on the line",
+            "being a lazy waste cadet",
+            "getting very drunk last night",
+            "wanting to stay in bed",
+            "the state of the economy",
+            "losing my phone and/or wallet",
+            "extenuating circumstances",
+            "getting a better offer",
+            "the wrong type of snow",
+            "taking a pregnant stranger to hospital",
+            "being attacked by a badger/fox",
+            "the ongoing conflict in the Middle East",
+            "NSA/GCHQ surveillance",
+            "ecumenical matters",
+            "operational concerns",
+            "the fact that WINTER IS COMING",
+            "watching cats on YouTube",
+            "cooking crystal",
+            "getting locked in a pub toilet",
+            "being burnt by the Fenchurch Street death ray",
+            "my cats breaking the webcam that I use to check up on them",
+            "making dim sum",
+            "my housemate being in the shower",
+            "Google maps saying the venue was in the wrong place",
+            "Ed Balls",
+            "a previous delay",
+            "jetlag from my trip to Portugal",
+            "industrial action",
+            "#IndustrialAction"
+        ];
 
-      <footer class="site-footer">
+        function generateBail() {
+            var bail = "Really sorry, can't make it today due to " + bails[Math.floor(Math.random() * bails.length)] + ". See you soon! :)";
+            $("#emailBtn").attr("href", "mailto:?subject=Sorry!&body=" + bail);
+            $("#smsBtn").attr("href", "sms:?body=" + bail);
+            $("#textArea").val(bail);
+        }
 
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
+        $.get("//api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail,tram,national-rail,cable-car,river-bus,river-tour/status", function (lines) {
+            $.each(lines, function (lineIndex, line) {
+                $.each(line.lineStatuses, function (lineStatusIndex, lineStatus) {
+                    if (lineStatus.statusSeverity !== 10) {
+                        var lineName = line.name;
+                        if (line.modeName === "tube") {
+                            lineName = "the " + lineName + " line";
+                        }
+                        if (line.modeName === "dlr") {
+                            lineName = "the " + lineName;
+                        }
+                        bails.push(lineStatus.statusSeverityDescription.toLowerCase() + " on " + lineName);
+                    }
+                });
+            });
+        });
 
-    </section>
+        function railBails(origin) {
+            $.get("//huxley.apphb.com/delays/" + origin + "/to/London/50?accessToken=DA1C7740-9DA0-11E4-80E6-A920340000B1", function (resp) {
+                if (resp.delays) {
+                    bails.push("train delays between " + resp.locationName + " and " + resp.filterLocationName);
+                }
+            });
+        }
 
-  
-  </body>
+        railBails("Clapham Junction");
+        railBails("Tunbridge Wells");
+        railBails("Felixstowe");
+        railBails("Grantham");
+        railBails("Romford");
+        railBails("York");
+        railBails("Truro");
+
+        $(document).on('pagecreate', function () {
+            $("#bailBtn").on("click", generateBail);
+            generateBail();
+        });
+    </script>
+
+</body>
 </html>
-
