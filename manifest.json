@@ -1,5 +1,6 @@
 {
  "name": "InstaBail",
+ "short_name": "InstaBail",
  "icons": [
   {
    "src": "\/android-icon-36x36.png",

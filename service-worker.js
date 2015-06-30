@@ -1,0 +1,3 @@
+/*
+  Offline is currently handled by app cache
+*/
