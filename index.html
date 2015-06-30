@@ -1,55 +1,58 @@
 <!DOCTYPE html>
-<html lang="en" manifest="/manifest.appcache">
+<html lang="en" manifest="manifest.appcache">
 <head>
-    <meta charset="utf-8">
     <title>InstaBail</title>
     <meta name="viewport" content="width=device-width">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="InstaBail">
-    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="InstaBail.min.css" />
+    <link rel="stylesheet" href="jquery.mobile.icons.min.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.structure.min.css" rel="stylesheet" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
 </head>
 <body>
-    <div data-role="page" data-theme="b">
+    <div data-role="page">
         <div data-role="header">
             <h1>InstaBail</h1>
         </div>
         <div data-role="content">
-            <div style="height: 200px; text-align: center;">
-                <img src="/android-icon-192x192.png" alt="InstaBail" />
+            <div style="text-align: center;">
+                <img src="android-icon-192x192.png" alt="InstaBail" width="96" />
             </div>
-            <textarea cols="20" rows="40" name="textArea" id="textArea"></textarea>
+            <textarea rows="5" name="textArea" id="textArea"></textarea>
             <p>
-                <a href="#" data-role="button" id="bailBtn">Generate a new bail!</a>
+                <a href="#" data-role="button" data-icon="recycle" data-iconpos="right" id="bailBtn">Generate a new bail!</a>
             </p>
             <p>
-                <a href="mailto:" data-role="button" id="emailBtn">Send as email</a>
+                <a href="mailto:" data-role="button" data-icon="mail" data-iconpos="right" id="emailBtn">Send as email</a>
             </p>
             <p>
-                <a href="sms:" data-role="button" id="smsBtn">Send as SMS</a>
+                <a href="sms:" data-role="button" data-icon="comment" data-iconpos="right" id="smsBtn">Send as SMS</a>
+            </p>
+            <p>
+                <a href="whatsapp:" data-role="button" data-icon="action" data-iconpos="right" id="waBtn">Send with WhatsApp</a>
             </p>
         </div>
     </div>
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
 
     <script type="text/javascript">
 
@@ -87,12 +90,16 @@
 
         function generateBail() {
             var bail = "Really sorry, can't make it today due to " + bails[Math.floor(Math.random() * bails.length)] + ". See you soon! :)";
-            $("#emailBtn").attr("href", "mailto:?subject=Sorry!&body=" + bail);
-            $("#smsBtn").attr("href", "sms:?body=" + bail);
+
+            var sendBail = encodeURIComponent(bail + " - https://instabail.uk");
+            $("#emailBtn").attr("href", "mailto:?subject=Sorry!&body=" + sendBail);
+            $("#smsBtn").attr("href", "sms:?body=" + sendBail);
+            $("#waBtn").attr("href", "whatsapp://send?text=" + sendBail);
+
             $("#textArea").val(bail);
         }
 
-        $.get("//api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail,tram,national-rail,cable-car,river-bus,river-tour/status", function (lines) {
+        $.get("https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail,tram,national-rail,cable-car,river-bus,river-tour/status", function (lines) {
             $.each(lines, function (lineIndex, line) {
                 $.each(line.lineStatuses, function (lineStatusIndex, lineStatus) {
                     if (lineStatus.statusSeverity !== 10) {
@@ -110,7 +117,7 @@
         });
 
         function railBails(origin) {
-            $.get("//huxley.apphb.com/delays/" + origin + "/to/London/50?accessToken=DA1C7740-9DA0-11E4-80E6-A920340000B1", function (resp) {
+            $.get("https://huxley.apphb.com/delays/" + origin + "/to/London/50?accessToken=DA1C7740-9DA0-11E4-80E6-A920340000B1", function (resp) {
                 if (resp.delays) {
                     bails.push("train delays between " + resp.locationName + " and " + resp.filterLocationName);
                 }
@@ -126,6 +133,7 @@
         railBails("Truro");
 
         $(document).on('pagecreate', function () {
+            $.mobile.ajaxEnabled = false;
             $("#bailBtn").on("click", generateBail);
             generateBail();
         });
