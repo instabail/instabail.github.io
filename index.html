@@ -107,7 +107,6 @@
             "Ed Balls",
             "a previous delay",
             "jetlag from my trip to Portugal",
-            "industrial action",
             "#IndustrialAction"
         ];
 
@@ -133,7 +132,11 @@
                         if (line.modeName === "dlr" || line.id === "woolwich-ferry") {
                             lineName = "the " + lineName;
                         }
-                        bails.push(lineStatus.statusSeverityDescription.toLowerCase() + " on " + lineName);
+                        var bail = lineStatus.statusSeverityDescription.toLowerCase() + " on " + lineName;
+                        if (bails.indexOf(bail) === -1) { // Only add if not present to avoid duplicates
+                            bails.push(bail);
+                            return false; // Break so only one bail from each line
+                        }
                     }
                 });
             });
@@ -149,11 +152,7 @@
 
         railBails("Clapham Junction");
         railBails("Tunbridge Wells");
-        railBails("Felixstowe");
-        railBails("Grantham");
-        railBails("Romford");
-        railBails("York");
-        railBails("Truro");
+        railBails("Birmingham New Street");
 
         $(document).on('pagecreate', function () {
             $.mobile.ajaxEnabled = false;
