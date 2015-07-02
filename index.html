@@ -129,7 +129,7 @@
                         if (line.modeName === "tube") {
                             lineName = "the " + lineName + " line";
                         }
-                        if (line.modeName === "dlr") {
+                        if (line.modeName === "dlr" || line.id === "woolwich-ferry") {
                             lineName = "the " + lineName;
                         }
                         bails.push(lineStatus.statusSeverityDescription.toLowerCase() + " on " + lineName);
