@@ -157,6 +157,10 @@
             railBails("Clapham Junction");
             railBails("Tunbridge Wells");
             railBails("Birmingham New Street");
+
+            $.get("https://instabail.uk/bails.json", function (resp) {
+                Array.prototype.push.apply(bails, resp);
+            });
         });
 
     </script>
