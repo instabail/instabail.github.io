@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" manifest="manifest.appcache" prefix="og: http://ogp.me/ns#">
 <head>
     <meta charset="utf-8">
@@ -51,9 +51,11 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mobile/1.4.5/jquery.mobile.min.js"></script>
 </head>
 <body>
-    <div data-role="page">
+    <div data-role="page" id="home">
         <div data-role="header">
+            <a data-icon="heart" href="#love" data-prefetch="true" data-transition="flip" data-direction="reverse">Love</a>
             <h1>InstaBail</h1>
+            <a data-icon="info" data-iconpos="right" href="#about" data-prefetch="true" data-transition="flip">Info</a>
         </div>
         <div data-role="content">
             <div style="height: 100px; text-align: center;">
@@ -61,8 +63,9 @@
             </div>
             <textarea rows="4" name="textArea" id="textArea" style="height: 100px !important;"></textarea>
             <p>
-                <a href="#" data-role="button" data-icon="recycle" data-iconpos="right" id="bailBtn">Generate a new bail!</a>
+                <a href="#" data-role="button" data-icon="refresh" data-iconpos="right" id="bailBtn">Generate a new bail!</a>
             </p>
+            <p>&nbsp;</p>
             <p>
                 <a href="mailto:" data-role="button" data-icon="mail" data-iconpos="right" id="emailBtn">Send as email</a>
             </p>
@@ -70,10 +73,57 @@
                 <a href="sms:" data-role="button" data-icon="comment" data-iconpos="right" id="smsBtn">Send as SMS</a>
             </p>
             <p>
-                <a href="whatsapp:" data-role="button" data-icon="action" data-iconpos="right" id="waBtn">Send with WhatsApp</a>
+                <a href="whatsapp:" data-role="button" data-icon="phone" data-iconpos="right" id="waBtn">Send with WhatsApp</a>
             </p>
         </div>
     </div>
+
+    <div data-role="page" id="about">
+        <div data-role="header">
+            <h1>About InstaBail</h1>
+            <a data-icon="home" data-iconpos="right" href="#home" data-prefetch="true" data-transition="flip" class="ui-btn-right" data-rel="back">Home</a>
+        </div>
+        <div data-role="content">
+            <p>
+                This is just a silly little offline mobile web app that I put together for fun.
+                It generates a random excuse from a list and easily lets you share it.
+                It uses transport APIs to get real-time information about delays and uses them in excuses.
+                Thanks to Lorna for the idea and Wing for a lot of inspiration for the bails!
+            </p>
+            <a href="https://unop.uk" data-role="button" target="_blank">Read more on my blog</a>
+            <a href="https://twitter.com/shutdownscanner" data-role="button" target="_blank">Follow me on Twitter</a>
+            <p>If you like mobile web apps then you should definitely check out Yo Flow, my app for gyms and personal trainers to induct new clients.</p>
+            <a href="https://yoflow.uk" data-role="button" target="_blank">Check out Yo Flow</a>
+            <p>InstaBail uses the TfL API and my Huxley project to proxy live railway departure data.</p>
+            <a href="https://github.com/jpsingleton/Huxley" data-role="button" target="_blank">View Huxley on GitHub</a>
+            <div style="text-align: center;">♥</div>
+        </div>
+    </div>
+
+    <div data-role="page" id="love">
+        <div data-role="header">
+            <a data-icon="home" href="#home" data-prefetch="true" data-transition="flip">Home</a>
+            <h1>InstaBail</h1>
+        </div>
+        <div data-role="content">
+            <div style="text-align: center;">
+                <h2>Love you too!</h2>
+                <div style="font-size: 11em;">
+                    ♥
+                </div>
+            </div>
+            <p>
+                <a href="mailto:?subject=I love InstaBail!&body=I love InstaBail! An app to help you instantly bail on your mates. - https://instabail.uk" data-role="button" data-icon="mail" data-iconpos="right" id="A1">Share by email</a>
+            </p>
+            <p>
+                <a href="sms:?body=I love InstaBail! An app to help you instantly bail on your mates. - https://instabail.uk" data-role="button" data-icon="comment" data-iconpos="right" id="A2">Share by SMS</a>
+            </p>
+            <p>
+                <a href="whatsapp://send?text=I love InstaBail! An app to help you instantly bail on your mates. - https://instabail.uk" data-role="button" data-icon="phone" data-iconpos="right">Share on WhatsApp</a>
+            </p>
+        </div>
+    </div>
+
     <script type="text/javascript">
 
         var bails = [
