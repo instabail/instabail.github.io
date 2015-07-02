@@ -76,7 +76,6 @@
             </p>
         </div>
     </div>
-
     <script type="text/javascript">
 
         var bails = [
@@ -110,57 +109,56 @@
             "#IndustrialAction"
         ];
 
-        function generateBail() {
-            var bail = "Really sorry, can't make it today due to " + bails[Math.floor(Math.random() * bails.length)] + ". See you soon! :)";
-
-            var sendBail = encodeURIComponent(bail + " - https://instabail.uk");
-            $("#emailBtn").attr("href", "mailto:?subject=Sorry!&body=" + sendBail);
-            $("#smsBtn").attr("href", "sms:?body=" + sendBail);
-            $("#waBtn").attr("href", "whatsapp://send?text=" + sendBail);
-
-            $("#textArea").val(bail);
-        }
-
-        $.get("https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail,tram,national-rail,cable-car,river-bus,river-tour/status", function (lines) {
-            $.each(lines, function (lineIndex, line) {
-                $.each(line.lineStatuses, function (lineStatusIndex, lineStatus) {
-                    if (lineStatus.statusSeverity !== 10) {
-                        var lineName = line.name;
-                        if (line.modeName === "tube") {
-                            lineName = "the " + lineName + " line";
-                        }
-                        if (line.modeName === "dlr" || line.id === "woolwich-ferry") {
-                            lineName = "the " + lineName;
-                        }
-                        var bail = lineStatus.statusSeverityDescription.toLowerCase() + " on " + lineName;
-                        if (bails.indexOf(bail) === -1) { // Only add if not present to avoid duplicates
-                            bails.push(bail);
-                            return false; // Break so only one bail from each line
-                        }
-                    }
-                });
-            });
-        });
-
-        function railBails(origin) {
-            $.get("https://huxley.apphb.com/delays/" + origin + "/to/London/50?accessToken=DA1C7740-9DA0-11E4-80E6-A920340000B1", function (resp) {
-                if (resp.delays) {
-                    bails.push("train delays between " + resp.locationName + " and " + resp.filterLocationName);
-                }
-            });
-        }
-
-        railBails("Clapham Junction");
-        railBails("Tunbridge Wells");
-        railBails("Birmingham New Street");
-
         $(document).on('pagecreate', function () {
             $.mobile.ajaxEnabled = false;
             $("#bailBtn").on("click", generateBail);
             generateBail();
+
+            function generateBail() {
+                var bail = "Really sorry, can't make it today due to " + bails[Math.floor(Math.random() * bails.length)] + ". See you soon! :)";
+
+                var sendBail = encodeURIComponent(bail + " - https://instabail.uk");
+                $("#emailBtn").attr("href", "mailto:?subject=Sorry!&body=" + sendBail);
+                $("#smsBtn").attr("href", "sms:?body=" + sendBail);
+                $("#waBtn").attr("href", "whatsapp://send?text=" + sendBail);
+
+                $("#textArea").val(bail);
+            }
+
+            $.get("https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail,tram,national-rail,cable-car,river-bus,river-tour/status", function (lines) {
+                $.each(lines, function (lineIndex, line) {
+                    $.each(line.lineStatuses, function (lineStatusIndex, lineStatus) {
+                        if (lineStatus.statusSeverity !== 10) {
+                            var lineName = line.name;
+                            if (line.modeName === "tube") {
+                                lineName = "the " + lineName + " line";
+                            }
+                            if (line.modeName === "dlr" || line.id === "woolwich-ferry") {
+                                lineName = "the " + lineName;
+                            }
+                            var bail = lineStatus.statusSeverityDescription.toLowerCase() + " on " + lineName;
+                            if (bails.indexOf(bail) === -1) { // Only add if not present to avoid duplicates
+                                bails.push(bail);
+                                return false; // Break so only one bail from each line
+                            }
+                        }
+                    });
+                });
+            });
+
+            function railBails(origin) {
+                $.get("https://huxley.apphb.com/delays/" + origin + "/to/London/50?accessToken=DA1C7740-9DA0-11E4-80E6-A920340000B1", function (resp) {
+                    if (resp.delays) {
+                        bails.push("train delays between " + resp.locationName + " and " + resp.filterLocationName);
+                    }
+                });
+            }
+
+            railBails("Clapham Junction");
+            railBails("Tunbridge Wells");
+            railBails("Birmingham New Street");
         });
 
     </script>
-
 </body>
 </html>
