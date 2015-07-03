@@ -75,6 +75,9 @@
             <p>
                 <a href="whatsapp:" data-role="button" data-icon="phone" data-iconpos="right" id="waBtn">Send with WhatsApp</a>
             </p>
+            <p>
+                <a href="https://twitter.com/intent/tweet" data-role="button" data-icon="action" data-iconpos="right" id="twitBtn">Tweet on Twitter</a>
+            </p>
         </div>
     </div>
 
@@ -111,15 +114,19 @@
                 <div style="font-size: 11em;">
                     ♥
                 </div>
+                <p>Please help spread the word about InstaBail by sharing it with your friends!</p>
             </div>
             <p>
-                <a href="mailto:?subject=I love InstaBail!&body=I love InstaBail! An app to help you instantly bail on your mates. - https://instabail.uk" data-role="button" data-icon="mail" data-iconpos="right" id="A1">Share by email</a>
+                <a href="mailto:?subject=I love InstaBail!&body=I love InstaBail! An app to help you instantly bail on your mates with comedy excuses. - https://instabail.uk" data-role="button" data-icon="mail" data-iconpos="right">Share by email</a>
             </p>
             <p>
-                <a href="sms:?body=I love InstaBail! An app to help you instantly bail on your mates. - https://instabail.uk" data-role="button" data-icon="comment" data-iconpos="right" id="A2">Share by SMS</a>
+                <a href="sms:?body=I love InstaBail! An app to help you instantly bail on your mates with comedy excuses. - https://instabail.uk" data-role="button" data-icon="comment" data-iconpos="right">Share by SMS</a>
             </p>
             <p>
-                <a href="whatsapp://send?text=I love InstaBail! An app to help you instantly bail on your mates. - https://instabail.uk" data-role="button" data-icon="phone" data-iconpos="right">Share on WhatsApp</a>
+                <a href="whatsapp://send?text=I love InstaBail! An app to help you instantly bail on your mates with comedy excuses. - https://instabail.uk" data-role="button" data-icon="phone" data-iconpos="right">Share on WhatsApp</a>
+            </p>
+            <p>
+                <a href="https://twitter.com/intent/tweet?text=InstaBail! An app to help you instantly bail on your mates with comedy excuses.&url=https%3A%2F%2Finstabail.uk&hashtags=InstaBail&via=shutdownscanner&related=yoflowuk" data-role="button" data-icon="action" data-iconpos="right">Share on Twitter</a>
             </p>
             <p>
                 You should add this app to your home screen!
@@ -174,6 +181,7 @@
             $("#emailBtn").attr("href", "mailto:?subject=Sorry!&body=" + sendBail);
             $("#smsBtn").attr("href", "sms:?body=" + sendBail);
             $("#waBtn").attr("href", "whatsapp://send?text=" + sendBail);
+            $("#twitBtn").attr("href", "https://twitter.com/intent/tweet?text=" + sendBail + "&related=shutdownscanner");
 
             $("#textArea").val(bail);
         }
