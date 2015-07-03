@@ -98,6 +98,8 @@
             <a href="https://yoflow.uk" data-role="button" target="_blank">Check out Yo Flow</a>
             <p>InstaBail uses the TfL API and my Huxley project to proxy live railway departure data.</p>
             <a href="https://github.com/jpsingleton/Huxley" data-role="button" target="_blank">View Huxley on GitHub</a>
+            <p>It also checks for any current tube strikes.</p>
+            <a href="https://isthetubeonstrike.com" data-role="button" target="_blank">IsTheTubeOnStrike.com</a>
             <p>Thanks to Lorna for the idea and Wing for a lot of the inspiration behind various bails!</p>
             <div style="text-align: center;">♥</div>
         </div>
@@ -224,6 +226,16 @@
 
         $.get("https://instabail.uk/bails.json", function (resp) {
             Array.prototype.push.apply(bails, resp);
+        });
+
+        $.get("https://isthetubeonstrike.com/api.json", function (resp) {
+            $.each(resp.strikes, function (strikeIndex, strike) {
+                var now = new Date();
+                if (now > new Date(strike.start) && now < new Date(strike.end)) {
+                    bails.push("a strike on the tube");
+                    return false;
+                }
+            });
         });
 
     </script>
