@@ -203,7 +203,11 @@
                         if (line.modeName === "dlr" || line.id === "woolwich-ferry") {
                             lineName = "the " + lineName;
                         }
-                        var bail = lineStatus.statusSeverityDescription.toLowerCase() + " on " + lineName;
+                        var statusDesc = lineStatus.statusSeverityDescription.toLowerCase();
+                        if (lineStatus.statusSeverity === 2) {
+                            statusDesc += " service";
+                        }
+                        var bail = statusDesc + " on " + lineName;
                         if (bails.indexOf(bail) === -1) { // Only add if not present to avoid duplicates
                             bails.push(bail);
                             return false; // Break so only one bail from each line
