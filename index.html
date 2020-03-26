@@ -71,24 +71,26 @@
             <textarea rows="4" name="textArea" id="textArea"
                 style="height: 100px !important;">Really sorry, can't make it today due to staying at home to protect the lives of others. See you soon! :)</textarea>
             <p>
-                <a href="#" data-role="button" data-icon="refresh" data-iconpos="right" id="bailBtn">Generate a new
-                    bail!</a>
+                <a href="#" data-role="button" data-icon="refresh" data-iconpos="right" id="bailBtn">
+                    Generate a new bail!
+                </a>
             </p>
             <p>&nbsp;</p>
             <p>
-                <a href="mailto:" data-role="button" data-icon="mail" data-iconpos="right" id="emailBtn">Send as
-                    email</a>
+                <a href="mailto:?subject=Sorry!&body=Really%20sorry%2C%20can't%20make%20it%20today%20due%20to%20staying%20at%20home%20to%20protect%20the%20lives%20of%20others.%20See%20you%20soon!%20%3A)%20-%20https%3A%2F%2Finstabail.uk"
+                    data-role="button" data-icon="mail" data-iconpos="right" id="emailBtn">Send as email</a>
             </p>
             <p>
-                <a href="sms:" data-role="button" data-icon="comment" data-iconpos="right" id="smsBtn">Send as SMS</a>
+                <a href="sms:?body=Really%20sorry%2C%20can't%20make%20it%20today%20due%20to%20staying%20at%20home%20to%20protect%20the%20lives%20of%20others.%20See%20you%20soon!%20%3A)%20-%20https%3A%2F%2Finstabail.uk"
+                    data-role="button" data-icon="comment" data-iconpos="right" id="smsBtn">Send as SMS</a>
             </p>
             <p>
-                <a href="whatsapp:" data-role="button" data-icon="phone" data-iconpos="right" id="waBtn">Send with
-                    WhatsApp</a>
+                <a href="whatsapp://send?text=Really%20sorry%2C%20can't%20make%20it%20today%20due%20to%20staying%20at%20home%20to%20protect%20the%20lives%20of%20others.%20See%20you%20soon!%20%3A)%20-%20https%3A%2F%2Finstabail.uk"
+                    data-role="button" data-icon="phone" data-iconpos="right" id="waBtn">Send with WhatsApp</a>
             </p>
             <p>
-                <a href="https://twitter.com/intent/tweet" data-role="button" data-icon="action" data-iconpos="right"
-                    id="twitBtn">Tweet on Twitter</a>
+                <a href="https://twitter.com/intent/tweet?text=Really%20sorry%2C%20can't%20make%20it%20today%20due%20to%20staying%20at%20home%20to%20protect%20the%20lives%20of%20others.%20See%20you%20soon!%20%3A)%20-%20https%3A%2F%2Finstabail.uk&related=shutdownscanner"
+                    data-role="button" data-icon="action" data-iconpos="right" id="twitBtn">Tweet on Twitter</a>
             </p>
         </div>
     </div>
@@ -167,8 +169,6 @@
 
         var bailCount = 0;
 
-        setButtons();
-
         var bails = [
             "staying at home to protect the lives of others",
             "leaves on the line",
@@ -214,6 +214,7 @@
 
             bailCount++;
 
+            if (localStorage.getItem('no-gc') === 't') return;
             if (window.goatcounter && window.goatcounter.count) {
                 window.goatcounter.count({
                     path: 'instabail-generated-' + bailCount,
@@ -239,7 +240,7 @@
                         if (line.modeName === "tube") {
                             lineName = "the " + lineName + " line";
                         }
-                        if (line.modeName === "dlr") {
+                        if (line.modeName === "dlr" || line.modeName === "tram") {
                             lineName = "the " + lineName;
                         }
                         var statusDesc = lineStatus.statusSeverityDescription.toLowerCase();
@@ -273,15 +274,17 @@
             Array.prototype.push.apply(bails, resp);
         });
 
-        var t = setInterval(function () {
-            if (window.goatcounter && window.goatcounter.count) {
-                clearInterval(t);
-                window.goatcounter.count({
-                    path: 'instabail-loaded',
-                    event: true
-                });
-            }
-        }, 100);
+        if (localStorage.getItem('no-gc') !== 't') {
+            var t = setInterval(function () {
+                if (window.goatcounter && window.goatcounter.count) {
+                    clearInterval(t);
+                    window.goatcounter.count({
+                        path: 'instabail-loaded',
+                        event: true
+                    });
+                }
+            }, 100);
+        }
 
     </script>
 
