@@ -114,7 +114,8 @@
             <a href="https://unop.uk/hire-me/" data-role="button" target="_blank">Hire me</a>
             <a href="https://twitter.com/shutdownscanner" data-role="button" target="_blank">Follow me on Twitter</a>
             <p>InstaBail uses the TfL API and my Huxley project to proxy live railway departure data.</p>
-            <a href="https://github.com/jpsingleton/Huxley" data-role="button" target="_blank">View Huxley on GitHub</a>
+            <a href="https://github.com/jpsingleton/Huxley2" data-role="button" target="_blank">View Huxley on
+                GitHub</a>
             <div style="text-align: center;">♥</div>
         </div>
     </div>
@@ -232,7 +233,7 @@
             $("#twitBtn").attr("href", "https://twitter.com/intent/tweet?text=" + sendBail + "&related=shutdownscanner");
         }
 
-        $.get("https://api.tfl.gov.uk/line/mode/tube,overground,dlr,tflrail,tram,national-rail,cable-car/status", function (lines) {
+        $.get("https://api.tfl.gov.uk/line/mode/tube,overground,dlr,elizabeth-line,tram,national-rail,cable-car/status", function (lines) {
             $.each(lines, function (lineIndex, line) {
                 $.each(line.lineStatuses, function (lineStatusIndex, lineStatus) {
                     if (lineStatus.statusSeverity !== 10) {
@@ -258,7 +259,7 @@
         });
 
         function railBails(origin) {
-            $.get("https://huxley.apphb.com/delays/" + origin + "/to/London/50?accessToken=DA1C7740-9DA0-11E4-80E6-A920340000B1", function (resp) {
+            $.get("https://huxley2.azurewebsites.net/delays/" + origin + "/to/London/50", function (resp) {
                 if (resp.delays) {
                     bails.push("train delays between " + resp.locationName + " and " + resp.filterLocationName);
                 }
